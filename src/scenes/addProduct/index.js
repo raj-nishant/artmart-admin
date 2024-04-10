@@ -49,7 +49,12 @@ const AddProduct = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const originalFormData = new FormData(e.target);
+    const formData = new FormData();
+    formData.append("title", originalFormData.get("name"));
+    formData.append("price", originalFormData.get("price"));
+    formData.append("images", originalFormData.get("images"));
+    console.log(formData);
     setLoading(true);
 
     try {
@@ -82,13 +87,24 @@ const AddProduct = () => {
 
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
+      <Typography
+        variant="h3" // Adjusts the size, h4 is an example that makes it larger
+        component="h1" // Semantic element
+        sx={{
+          fontWeight: "bold",
+          textAlign: "center",
+          mb: 4,
+        }}
+      >
+        Add Products
+      </Typography>
       <Paper elevation={2} sx={{ p: 3 }}>
         <form onSubmit={handleFormSubmit}>
           <TextField
             fullWidth
-            label="Product Name"
-            id="product-name"
-            name="productName"
+            label="Title"
+            id="title"
+            name="title"
             variant="outlined"
             margin="normal"
           />
@@ -194,6 +210,7 @@ const AddProduct = () => {
           >
             <label htmlFor="contained-button-file">
               <Input
+                name="images"
                 accept="image/*"
                 id="contained-button-file"
                 multiple
