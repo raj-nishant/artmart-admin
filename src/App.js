@@ -38,41 +38,44 @@ const AppContent = () => {
 
   return (
     <>
-      {/* <ColorModeContext.Provider value={colorMode}> */}
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          {auth && <Sidebar isSidebar={isSidebar} />}
-          <main className="content">
-            {auth && <Topbar setIsSidebar={setIsSidebar} />}
-            {/* <Header /> */}
-            {!auth && <HeaderMain />}
-            <div className="flex w-full h-auto p-2">
-              {/* {noHeaderSidebar && <Sidebar />} */}
-              <div className="px-7 w-full p-3">
-                <Routes>
-                  <Route
-                    path="/"
-                    element={auth ? <Dashboard /> : <Navigate to="/register" />}
-                  />
-                  <Route
-                    path="/register"
-                    element={auth ? <Navigate to="/" /> : <RegistrationPage />}
-                  />
-                  <Route
-                    path="/login"
-                    element={auth ? <Navigate to="/" /> : <LoginPage />}
-                  />
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            {auth && <Sidebar isSidebar={isSidebar} />}
+            <main className="content">
+              {auth && <Topbar setIsSidebar={setIsSidebar} />}
+              {/* <Header /> */}
+              {!auth && <HeaderMain />}
+              <div className="flex w-full h-auto p-2">
+                <div className="px-7 w-full p-3">
+                  <Routes>
+                    <Route
+                      path="/"
+                      element={
+                        auth ? <Dashboard /> : <Navigate to="/register" />
+                      }
+                    />
+                    <Route
+                      path="/register"
+                      element={
+                        auth ? <Navigate to="/" /> : <RegistrationPage />
+                      }
+                    />
+                    <Route
+                      path="/login"
+                      element={auth ? <Navigate to="/" /> : <LoginPage />}
+                    />
 
-                  <Route path="/products" element={<Product />} />
-                  <Route path="/add-product" element={<AddProduct />} />
-                </Routes>
+                    <Route path="/products" element={<Product />} />
+                    <Route path="/add-product" element={<AddProduct />} />
+                  </Routes>
+                </div>
               </div>
-            </div>
-          </main>
-        </div>
-      </ThemeProvider>
-      {/* </ColorModeContext.Provider> */}
+            </main>
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   );
 };
