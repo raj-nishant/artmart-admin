@@ -9,6 +9,7 @@ import RegistrationPage from "./scenes/register";
 import HeaderMain from "./components/HeaderMain";
 import LoginPage from "./scenes/login";
 import AddProduct from "./scenes/addProduct";
+import ProductDetails from "./scenes/productDetails";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
@@ -65,6 +66,12 @@ const AppContent = () => {
                     <Route
                       path="/login"
                       element={auth ? <Navigate to="/" /> : <LoginPage />}
+                    />
+                    <Route
+                      path="/products/:id"
+                      element={
+                        auth ? <ProductDetails /> : <Navigate to="/register" />
+                      }
                     />
 
                     <Route path="/products" element={<Product />} />
