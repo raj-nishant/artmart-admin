@@ -1,0 +1,53 @@
+.w-full {
+  width: 100%;
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(
+    to right,
+    rgba(249, 250, 251, 1),
+    rgba(209, 213, 219, 1)
+  );
+}
+
+.from-gray-200 {
+  --tw-gradient-from: rgba(209, 213, 219, 1);
+}
+
+.to-gray-300 {
+  --tw-gradient-to: rgba(156, 163, 175, 1);
+}
+
+.h-56 {
+  height: 14rem;
+}
+
+.mt-7 {
+  margin-top: 1.75rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-gray-300 {
+  border-color: rgba(209, 213, 219, 1);
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
