@@ -42,13 +42,18 @@ const Dashboard = () => {
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
+        gridTemplateColumns={{
+          xs: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(12, 1fr)",
+        }}
         gridAutoRows="140px"
         gap="20px"
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", lg: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -67,7 +72,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", lg: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -86,7 +91,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", lg: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -105,7 +110,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", lg: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -126,7 +131,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn={{ xs: "span 12", md: "span 8" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -166,7 +171,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={{ xs: "span 12", md: "span 4" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
