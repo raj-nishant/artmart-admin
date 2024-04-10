@@ -73,22 +73,63 @@ const Topbar = () => {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
-          PaperProps={{
-            sx: {
-              minWidth: "200px", // Adjust the minimum width of the menu
+          sx={{
+            ".MuiPaper-root": {
+              // Targeting the Paper component inside Menu
+              minWidth: "200px",
+              boxShadow:
+                "rgb(0 0 0 / 20%) 0px 3px 5px -1px, rgb(0 0 0 / 14%) 0px 6px 10px 0px, rgb(0 0 0 / 12%) 0px 1px 18px 0px", // Custom shadow
+              borderRadius: "12px",
+              overflow: "hidden",
             },
           }}
         >
-          <MenuItem onClick={handleMenuClose} sx={{ fontSize: "1rem" }}>
-            Name
+          <MenuItem
+            onClick={handleMenuClose}
+            sx={{
+              fontSize: "1rem",
+              "&:hover": {
+                backgroundColor: "primary.main", // Use theme's primary color on hover
+                color: "primary.contrastText", // Ensures text is readable on hover
+              },
+            }}
+          >
+            hi, {userDetails.name}
           </MenuItem>
-          <MenuItem onClick={handleMenuClose} sx={{ fontSize: "1rem" }}>
+          <MenuItem
+            onClick={handleMenuClose}
+            sx={{
+              fontSize: "1rem",
+              "&:hover": {
+                backgroundColor: "primary.main", // Use theme's primary color on hover
+                color: "primary.contrastText", // Ensures text is readable on hover
+              },
+            }}
+          >
             Profile
           </MenuItem>
-          <MenuItem onClick={handleMenuClose} sx={{ fontSize: "1rem" }}>
+          <MenuItem
+            onClick={handleMenuClose}
+            sx={{
+              fontSize: "1rem",
+              "&:hover": {
+                backgroundColor: "primary.main", // Use theme's primary color on hover
+                color: "primary.contrastText", // Ensures text is readable on hover
+              },
+            }}
+          >
             Settings
           </MenuItem>
-          <MenuItem onClick={handleLogout} sx={{ fontSize: "1rem" }}>
+          <MenuItem
+            onClick={handleLogout}
+            sx={{
+              fontSize: "1rem",
+              "&:hover": {
+                backgroundColor: "red", // Use theme's primary color on hover
+                color: "primary.contrastText", // Ensures text is readable on hover
+              },
+            }}
+          >
             Logout
           </MenuItem>
         </Menu>
