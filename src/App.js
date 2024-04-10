@@ -10,7 +10,7 @@ import HeaderMain from "./components/HeaderMain";
 import LoginPage from "./scenes/login";
 import AddProduct from "./scenes/addProduct";
 
-import { Routes, Route, Navigate, useLocation } from "react-router-dom"; // Remove BrowserRouter as Router
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Product from "./scenes/products";
 
@@ -28,7 +28,6 @@ const AppContent = () => {
   const location = useLocation();
   const { isAuthenticated, authChecked } = useAuth();
 
-  // Wait for the authentication check to complete before rendering the routes
   if (!authChecked) {
     return <div>Loading...</div>;
   }
