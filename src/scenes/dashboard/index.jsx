@@ -50,6 +50,7 @@ const Dashboard = () => {
         }}
         gridAutoRows="140px"
         gap="20px"
+        rowGap="40px"
       >
         {/* ROW 1 */}
         <Box
@@ -58,6 +59,7 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="5px"
         >
           <StatBox
             title="12,361"
@@ -131,7 +133,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn={{ xs: "span 12", md: "span 8" }}
+          gridColumn={{ xs: "span 12", md: "span 12" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
