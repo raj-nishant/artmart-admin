@@ -94,7 +94,7 @@ const Topbar = () => {
               },
             }}
           >
-            hi, {userDetails.name}
+            hi, {userDetails?.name}
           </MenuItem>
           <MenuItem
             onClick={handleMenuClose}
