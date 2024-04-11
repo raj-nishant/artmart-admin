@@ -19,6 +19,7 @@ import ProductDetails from "./scenes/productDetails";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Product from "./scenes/products";
+import Profile from "./scenes/profile/profile";
 
 const App = () => {
   return (
@@ -97,6 +98,7 @@ const AppContent = () => {
 
                     <Route path="/products" element={<Product />} />
                     <Route path="/add-product" element={<AddProduct />} />
+                    <Route path="/profile" element={<Profile />} />
                   </Routes>
                 </div>
               </div>

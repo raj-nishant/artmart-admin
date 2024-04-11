@@ -11,6 +11,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { useAuth } from "../../services/AuthContext";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -96,18 +97,20 @@ const Topbar = () => {
           >
             hi, {userDetails?.name}
           </MenuItem>
-          <MenuItem
-            onClick={handleMenuClose}
-            sx={{
-              fontSize: "1rem",
-              "&:hover": {
-                backgroundColor: "primary.main", // Use theme's primary color on hover
-                color: "primary.contrastText", // Ensures text is readable on hover
-              },
-            }}
-          >
-            Profile
-          </MenuItem>
+
+          <Link to="/profile">
+            <MenuItem
+              sx={{
+                fontSize: "1rem",
+                "&:hover": {
+                  backgroundColor: "primary.main", // Use theme's primary color on hover
+                  color: "primary.contrastText", // Ensures text is readable on hover
+                },
+              }}
+            >
+              Profile
+            </MenuItem>
+          </Link>
           <MenuItem
             onClick={handleMenuClose}
             sx={{

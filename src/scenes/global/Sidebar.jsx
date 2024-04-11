@@ -15,6 +15,7 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { useAuth } from "../../services/AuthContext";
 
@@ -150,7 +151,7 @@ const Sidebar = () => {
             <Item
               title="Add Product"
               to="/add-product"
-              icon={<PeopleOutlinedIcon />}
+              icon={<AddCircleIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -185,8 +186,8 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
-              to="/form"
+              title="Profile"
+              to="/profile"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
