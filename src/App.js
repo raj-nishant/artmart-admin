@@ -2,7 +2,12 @@ import { useState } from "react";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  CssBaseline,
+  ThemeProvider,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { AuthProvider, useAuth } from "./services/AuthContext";
 import RegistrationPage from "./scenes/register";
@@ -30,7 +35,23 @@ const AppContent = () => {
   const { isAuthenticated, authChecked } = useAuth();
 
   if (!authChecked) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1500,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   const auth = isAuthenticated();
