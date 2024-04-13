@@ -1,10 +1,14 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import ProgressCircle from "./ProgressCircle";
+import { useAnimatedNumber } from "./useAnimatedNumber"; // assuming the hook is in useAnimatedNumber.js
 
 const StatBox = ({ title, subtitle, icon, progress, increase }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const animatedTitle = useAnimatedNumber(parseInt(title), 2000); // 2000 ms animation duration
+  const animatedProgress = useAnimatedNumber(parseFloat(progress), 2000);
 
   return (
     <Box width="100%" m="0 30px">
@@ -16,11 +20,11 @@ const StatBox = ({ title, subtitle, icon, progress, increase }) => {
             fontWeight="bold"
             sx={{ color: colors.grey[100] }}
           >
-            {title}
+            {animatedTitle.toLocaleString()}
           </Typography>
         </Box>
         <Box>
-          <ProgressCircle progress={progress} />
+          <ProgressCircle progress={animatedProgress} />
         </Box>
       </Box>
       <Box display="flex" justifyContent="space-between" mt="2px">
