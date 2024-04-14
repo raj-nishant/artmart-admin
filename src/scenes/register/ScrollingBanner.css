@@ -12,9 +12,9 @@
   position: relative;
   white-space: nowrap;
   padding: 2px;
-  width: 100%; /* Ensure full width */
-  background: linear-gradient(to right, black, #0a3d62); /* Gradient effect */
-  color: white; /* Ensure text color is white for better visibility */
+  width: 100%;
+  background: linear-gradient(to right, black, #0a3d62);
+  color: white;
 }
 
 .scroll-container {
@@ -24,7 +24,7 @@
 
 .scroll-text {
   display: inline-block;
-  min-width: 50%; /* Adjusted for seamless transition */
+  min-width: 100%; /* Adjusted for seamless transition */
   text-align: center;
   padding-right: 50%; /* Spacing between messages */
 }
