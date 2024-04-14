@@ -1,0 +1,30 @@
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scrolling-banner {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  padding: 2px;
+  width: 100%; /* Ensure full width */
+  background: linear-gradient(to right, black, #0a3d62); /* Gradient effect */
+  color: white; /* Ensure text color is white for better visibility */
+}
+
+.scroll-container {
+  display: flex;
+  animation: scroll-left 20s linear infinite;
+}
+
+.scroll-text {
+  display: inline-block;
+  min-width: 50%; /* Adjusted for seamless transition */
+  text-align: center;
+  padding-right: 50%; /* Spacing between messages */
+}
