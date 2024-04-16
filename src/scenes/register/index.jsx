@@ -36,7 +36,7 @@ const RegistrationPage = () => {
     formData.append("password", password);
     formData.append("instagramUrl", insta);
     formData.append("linkTreeUrl", linkTree);
-    formData.append("profilePhotoUrl", profilePicture);
+    formData.append("image", profilePicture);
 
     try {
       const response = await fetch(

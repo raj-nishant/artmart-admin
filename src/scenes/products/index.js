@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../services/AuthContext";
 import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
-// import "./index.css";
 
 const Product = () => {
   const [productData, setProductData] = useState(null);
@@ -73,6 +72,20 @@ const Product = () => {
       );
     }
     return <>{divElements}</>;
+  }
+
+  if (productData.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="font-bold text-xl">
+          No any product found. Please{" "}
+          <Link className="text-blue-600 underline" to="/add-product">
+            add products
+          </Link>
+          .
+        </h1>
+      </div>
+    );
   }
 
   return (
