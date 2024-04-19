@@ -6,6 +6,16 @@ const AuthContext = createContext();
 // Custom hook to use the auth context
 export const useAuth = () => useContext(AuthContext);
 
+// Function to decode JWT and check if it's expired
+const isJwtExpired = (jwt) => {
+  if (!jwt) return true;  // Assume expired if no token
+
+  const { exp } = JSON.parse(atob(jwt.split('.')[1])); // Decode JWT payload
+  const now = Math.floor(Date.now() / 1000);  // Current timestamp in seconds
+
+  return exp < now;  // Check if token expired
+};
+
 // AuthProvider component to wrap your application and provide auth context
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Tracks the current user (JWT in this case)
@@ -14,20 +24,22 @@ export const AuthProvider = ({ children }) => {
 
   // Async function to fetch user details
   const fetchUserDetails = async () => {
-    try {
-      const jwtData = JSON.parse(localStorage.getItem("jwt"));
-      if (!jwtData) return; // Exit if no JWT is found
+    const jwtData = JSON.parse(localStorage.getItem("jwt"));
+    if (!jwtData || isJwtExpired(jwtData.jwt)) {
+      localStorage.removeItem("jwt");
+      setUser(null);
+      setUserDetails(null);
+      return;  // Exit if JWT is expired or not found
+    }
 
-      const response = await fetch(
-        "https://artist-shop-back-end.onrender.com/api/user/detail",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${jwtData.jwt}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    try {
+      const response = await fetch("https://artist-shop-back-end.onrender.com/api/user/detail", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtData.jwt}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch user details");
@@ -66,6 +78,10 @@ export const AuthProvider = ({ children }) => {
       }
 
       const jwt = await response.json();
+      if (isJwtExpired(jwt.jwt)) {
+        throw new Error("Token has expired");
+      }
+      
       localStorage.setItem("jwt", JSON.stringify(jwt));
       setUser(jwt);
       await fetchUserDetails();
@@ -89,9 +105,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuthCheck = async () => {
       const storedUserData = localStorage.getItem("jwt");
-      if (storedUserData) {
+      if (storedUserData && !isJwtExpired(JSON.parse(storedUserData).jwt)) {
         setUser(JSON.parse(storedUserData));
         await fetchUserDetails();
+      } else {
+        localStorage.removeItem("jwt");
+        setUser(null);
+        setUserDetails(null);
       }
       setAuthChecked(true);
     };
