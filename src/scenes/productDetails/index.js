@@ -94,6 +94,7 @@ const ProductDetails = () => {
               type="text"
               id="title"
               name="title"
+              value={data.name}
               // value={formData.title}
               // onChange={handleInputChange}
             />
@@ -116,8 +117,8 @@ const ProductDetails = () => {
               className="border border-gray-300 rounded-md p-2 w-full italic"
               type="text"
               id="tags"
-              name="tags"
-              // value={formData.tags}
+              name="price"
+              value={data.price}
               // onChange={handleInputChange}
             />
           </div>

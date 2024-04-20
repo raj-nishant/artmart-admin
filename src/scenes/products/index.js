@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../services/AuthContext";
 import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Product = () => {
   const [productData, setProductData] = useState(null);
   const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
   const label = { inputProps: { "aria-label": "Switch demo" } };
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,48 +96,51 @@ const Product = () => {
       {productData && isAuthenticated() && (
         <div className="mt-10 w-full">
           {productData.map((product, index) => (
-            <Link key={index} to={`/products/${product.id}`}>
-              <div className="px-7 py-4 border rounded-lg mb-5 shadow-md">
-                <div className="flex items-center bg-white p-4 justify-between">
-                  <div>
-                    {product.images && product.images[0] && (
-                      <img
-                        src={product.images[0].url}
-                        alt="no img found"
-                        className="w-60 h-44 object-cover border rounded-lg"
-                      />
-                    )}
-                    <div className="flex text-lg mt-2 justify-center">
-                      <h2 className=" font-semibold text-gray-800 ">
-                        {product.name} -
-                      </h2>
-                      <span>${product.price}</span>
-                    </div>
-                    {/* <p className="text-gray-600 text-center mt-3 font-bold">
+            <div className="px-7 py-4 border rounded-lg mb-5 shadow-md">
+              <div className="flex items-center bg-white p-4 justify-between">
+                <div>
+                  {product.images && product.images[0] && (
+                    <img
+                      src={product.images[0].url}
+                      alt="no img found"
+                      className="w-60 h-44 object-cover border rounded-lg"
+                    />
+                  )}
+                  <div className="flex text-lg mt-2 justify-center">
+                    <h2 className=" font-semibold text-gray-800 ">
+                      {product.name} -
+                    </h2>
+                    <span>${product.price}</span>
+                  </div>
+                  {/* <p className="text-gray-600 text-center mt-3 font-bold">
                     ${product.price}
                   </p> */}
-                  </div>
-                  <div className="flex flex-col w-1/3">
-                    <input
-                      className="h-40 border rounded-md px-4 text-center"
-                      type="text"
-                      placeholder="Add Description of Product"
-                    />
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <Switch {...label} />
-                      <button
-                        type="submit"
-                        className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      >
-                        Submit for Review
+                </div>
+                <div className="flex flex-col w-1/3">
+                  <input
+                    className="h-40 border rounded-md px-4 text-center"
+                    type="text"
+                    placeholder="Add Description of Product"
+                  />
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <Link key={index} to={`/products/${product.id}`}>
+                      <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 mr-2">
+                        Edit
                       </button>
-                    </div>
+                    </Link>
+                    {/* <Switch {...label} /> */}
+                    <button
+                      type="submit"
+                      className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                      Submit for Review
+                    </button>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
