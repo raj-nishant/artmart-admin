@@ -4,6 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 const ProductDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +28,8 @@ const ProductDetails = () => {
         );
         const data = await response.json();
         setData(data);
+        setTitle(data?.name);
+        setPrice(data?.price);
         console.log(data);
       } catch (error) {
         console.error(error);
@@ -51,29 +57,55 @@ const ProductDetails = () => {
     }
   };
 
-  const handleEdit = async () => {
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Update the image state to the selected file
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const jwtData = JSON.parse(localStorage.getItem("jwt"));
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("price", price);
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
       const response = await fetch(
         `https://artist-shop-back-end.onrender.com/api/illustrations/${id}`,
         {
-          method: "DELETE",
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${jwtData.jwt}`,
+          },
+          body: formData,
         }
       );
+
       if (response.ok) {
+        console.log("Update successful");
         navigate("/products");
       } else {
-        console.error("Failed to delete the item.");
+        console.error("Failed to update the item.");
       }
     } catch (error) {
-      console.error("error deleting item", error);
+      console.error("error updating item", error);
     }
   };
 
   return (
     <div className="mt-3 flex w-full justify-between">
-      <div className="p-5 bg-white w-2/5 border flex items-center">
+      <div className="p-5 bg-white w-2/5 border flex-col items-center">
         {data && data.images[0]?.url && (
-          <div className="md:flex">
+          <div className="md:flex h-1/2">
             <img
               className="h-1/2 object-cover md:h-full"
               src={data.images[0].url}
@@ -81,10 +113,13 @@ const ProductDetails = () => {
             />
           </div>
         )}
+        <div className="h-1/2">
+          <input type="file" onChange={handleImageChange} className="mt-3" />
+        </div>
       </div>
 
       <div className="p-10 bg-white w-1/2">
-        <form className="space-y-4">
+        <form className="space-y-8">
           <div>
             <label className="block font-medium italic" htmlFor="title">
               Product Title
@@ -94,9 +129,8 @@ const ProductDetails = () => {
               type="text"
               id="title"
               name="title"
-              value={data.name}
-              // value={formData.title}
-              // onChange={handleInputChange}
+              value={title}
+              onChange={handleTitleChange}
             />
           </div>
           <div>
@@ -107,74 +141,42 @@ const ProductDetails = () => {
               className="border border-gray-300 rounded-md p-2 w-full"
               id="description"
               name="description"
-              // value={formData.description}
-              // onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor="tags">Tags</label>
+            <label htmlFor="price">Price</label>
             <input
               className="border border-gray-300 rounded-md p-2 w-full italic"
               type="text"
-              id="tags"
+              id="price"
               name="price"
-              value={data.price}
-              // onChange={handleInputChange}
+              value={price}
+              onChange={handlePriceChange}
             />
           </div>
-          <div>
-            <span className="mr-2">Mature Content:</span>
-            <label className="inline-block mr-4">
-              <input
-                type="radio"
-                name="matureContent"
-                value="yes"
-                // checked={formData.matureContent === "yes"}
-                // onChange={handleRadioChange}
-                className="mr-1"
-              />
-              Yes
-            </label>
-            <label className="inline-block">
-              <input
-                type="radio"
-                name="matureContent"
-                value="no"
-                // checked={formData.matureContent === "no"}
-                // onChange={handleRadioChange}
-                className="mr-1"
-              />
-              No
-            </label>
-          </div>
+        </form>
 
-          <div className="flex justify-between">
+        <div className="flex justify-between mt-14">
+          <div>
             <button
+              onClick={handleDelete}
               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
               type="submit"
             >
               Save
             </button>
-
-            <div>
-              <button
-                onClick={handleEdit}
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 mr-2"
-                type="submit"
-              >
-                Edit
-              </button>
-
-              <button
-                onClick={handleDelete}
-                className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-                type="submit"
-              >
-                Delete
-              </button>
-            </div>
           </div>
-        </form>
+
+          <div>
+            <button
+              onClick={handleDelete}
+              className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

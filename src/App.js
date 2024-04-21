@@ -64,8 +64,11 @@ const AppContent = () => {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <div className="app">
-            {auth && <Sidebar isSidebar={isSidebar} />}
+          <div className=" flex h-auto">
+            <div className="bg-[#f2f0f0]">
+              {auth && <Sidebar isSidebar={isSidebar} />}
+            </div>
+
             <main className="content">
               {auth && <Topbar setIsSidebar={setIsSidebar} />}
               {/* <Header /> */}

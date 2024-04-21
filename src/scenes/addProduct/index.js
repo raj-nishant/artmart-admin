@@ -51,7 +51,7 @@ const AddProduct = () => {
     e.preventDefault();
     const originalFormData = new FormData(e.target);
     const formData = new FormData();
-    formData.append("title", originalFormData.get("name"));
+    formData.append("title", originalFormData.get("title"));
     formData.append("price", originalFormData.get("price"));
     formData.append("images", originalFormData.get("images"));
     console.log(formData);
