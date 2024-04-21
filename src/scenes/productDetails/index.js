@@ -126,7 +126,7 @@ const ProductDetails = () => {
     <div className="mt-3 flex flex-wrap w-full justify-between">
       <div className="p-5 bg-white w-screen lg:w-1/2 border flex-col items-center">
         {data && data.images[0]?.url && (
-          <div className="md:flex h-1/2">
+          <div className="md:flex justify-center h-1/3">
             <img
               className="h-1/2 object-cover md:h-full"
               src={data.images[0].url}
