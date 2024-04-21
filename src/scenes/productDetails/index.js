@@ -123,8 +123,8 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="mt-3 flex w-full justify-between">
-      <div className="p-5 bg-white w-2/5 border flex-col items-center">
+    <div className="mt-3 flex flex-wrap w-full justify-between">
+      <div className="p-5 bg-white w-screen lg:w-1/2 border flex-col items-center">
         {data && data.images[0]?.url && (
           <div className="md:flex h-1/2">
             <img
@@ -203,7 +203,7 @@ const ProductDetails = () => {
         </Box>
       </div>
 
-      <div className="p-10 bg-white w-1/2">
+      <div className="p-10 bg-white w-screen lg:w-1/2">
         <form className="space-y-8">
           <div>
             <label className="block font-medium italic" htmlFor="title">

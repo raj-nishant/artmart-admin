@@ -12,6 +12,9 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { useAuth } from "../../services/AuthContext";
 import { Link } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Sidebar from "./Sidebar";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -35,12 +38,16 @@ const Topbar = () => {
     setAnchorEl(null);
   };
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
+
+      {isMobile && <MenuIcon className="m-auto mr-5" />}
+
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
