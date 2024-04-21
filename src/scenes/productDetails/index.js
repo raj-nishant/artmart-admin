@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Box, Paper, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const Input = styled("input")({
+  display: "none",
+});
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -7,6 +14,16 @@ const ProductDetails = () => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
+  const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    handleImageChange(e);
+  };
 
   const navigate = useNavigate();
 
@@ -64,7 +81,10 @@ const ProductDetails = () => {
     setPrice(e.target.value);
   };
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]); // Update the image state to the selected file
+    setImage(e.target.files[0]);
+    const files = [...e.target.files];
+    const urls = files.map((file) => URL.createObjectURL(file));
+    setImagePreviewUrls(urls);
   };
 
   const handleSave = async (e) => {
@@ -75,7 +95,7 @@ const ProductDetails = () => {
     formData.append("title", title);
     formData.append("price", price);
     if (image) {
-      formData.append("image", image);
+      formData.append("images", image);
     }
 
     try {
@@ -85,6 +105,7 @@ const ProductDetails = () => {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${jwtData.jwt}`,
+            illustration_id: id,
           },
           body: formData,
         }
@@ -113,9 +134,73 @@ const ProductDetails = () => {
             />
           </div>
         )}
-        <div className="h-1/2">
+        {/* <div className="h-1/2">
           <input type="file" onChange={handleImageChange} className="mt-3" />
-        </div>
+        </div> */}
+        <h1 className="text-center font-bold text-lg mt-7">Update Image</h1>
+        <Box
+          sx={{
+            mt: 2,
+            p: 4,
+            border: "2px dashed gray",
+            borderRadius: "4px",
+            position: "relative",
+            textAlign: "center",
+            cursor: "pointer",
+            bgcolor: "background.paper",
+            color: "text.secondary",
+            "&:hover": {
+              bgcolor: "background.default",
+            },
+          }}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <label htmlFor="contained-button-file">
+            <Input
+              name="images"
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={handleImageChange}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CloudUploadIcon sx={{ fontSize: 48 }} />
+              <Typography variant="body1">
+                To update image, Drag and drop an image here, or click to select
+                files
+              </Typography>
+            </Box>
+          </label>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            mt: 2,
+            justifyContent: "center",
+          }}
+        >
+          {imagePreviewUrls.map((url, index) => (
+            <Box key={index} sx={{ m: 1 }}>
+              <Paper elevation={4} sx={{ overflow: "hidden" }}>
+                <img
+                  src={url}
+                  alt={`Preview ${index}`}
+                  style={{ width: 120, height: 120, objectFit: "cover" }}
+                />
+              </Paper>
+            </Box>
+          ))}
+        </Box>
       </div>
 
       <div className="p-10 bg-white w-1/2">
@@ -159,7 +244,7 @@ const ProductDetails = () => {
         <div className="flex justify-between mt-14">
           <div>
             <button
-              onClick={handleDelete}
+              onClick={handleSave}
               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
               type="submit"
             >
